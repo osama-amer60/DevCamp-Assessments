@@ -1,0 +1,25 @@
+body {
+  background-color: rgb(245, 245, 245);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+a:hover {
+  color: rgb(211, 211, 211) !important;
+}
+section {
+  margin-top: 70px;
+}
+.hert {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
+}
+.hert:hover {
+  color: red;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
