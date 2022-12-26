@@ -1,7 +1,7 @@
 <template>
   <div class="add-users my-5">
-    <b-form>
-      <b-form-group id="input-group-1" label="First Name:" label-for="input-2">
+    <b-form @submit="submitForm">
+      <b-form-group id="input-group-1" label="First Name:" label-for="input-1">
         <b-form-input
           id="input-1"
           v-model="form.firstName"
@@ -19,7 +19,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-3" label="Age:" label-for="input-2">
+      <b-form-group id="input-group-3" label="Age:" label-for="input-3">
         <b-form-input
           id="input-3"
           v-model="form.age"
@@ -29,7 +29,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-4" label="E-mail:" label-for="input-2">
+      <b-form-group id="input-group-4" label="E-mail:" label-for="input-4">
         <b-form-input
           id="input-4"
           v-model="form.email"
@@ -39,17 +39,17 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-button v-if="!updatedUser" type="submit" variant="primary" @click.prevent="getFormData(),updateShowList()">Submit</b-button>
-      <b-button v-else type="submit" variant="danger" @click.prevent="update()">Update User</b-button>
+      <b-button type="submit" variant="primary">{{ updatedUser ? 'Update User' : 'Submit' }}</b-button>
+      <!-- <b-button v-if="!updatedUser" type="submit" variant="primary" @click="getFormData(),updateShowList()">Submit</b-button> -->
+      <!-- <b-button v-else type="submit" variant="danger" @click.prevent="update()">Update User</b-button> -->
     </b-form>
 
   </div>
 </template>
 
 <script lang="ts">
-import {useUsersStore} from '@/store/users'
+import { useUsersStore } from '@/store/users';
 import { mapActions , mapState} from 'pinia';
-
 
 interface form {
   firstName: string;
@@ -74,13 +74,14 @@ export default {
   getFormData(){
     this.addUser(this.form)
   },
-  update(){
-
-    this.displayUpdatedUser(this.form)
-    this.resetUpdatedUser()
-    this.updateShowList()
-
-    
+  submitForm(event: any) {
+    if ( this.updatedUser ) {
+      this.displayUpdatedUser(this.form)
+      this.resetUpdatedUser()
+    } else {
+      this.addUser(this.form);
+    }
+    this.updateShowList();
   }
 },
 computed:{
